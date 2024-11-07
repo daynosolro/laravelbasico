@@ -12,7 +12,8 @@ class Categoria extends Model
     // Especifica la columna que es la clave primaria
     protected $primaryKey = 'id_categoria';
 
- 
+    public $timestamps = false;
+
     // Estos son los campos que pueden ser asignados masivamente
     protected $fillable = [
         'nombre',
