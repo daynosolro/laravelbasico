@@ -14,5 +14,18 @@ class Product extends Model
         'name',
         'description',
         'price',
+        'id_categoria', 
+
     ];
+
+
+
+    /**
+     * Relación inversa muchos a uno con el modelo Categoria.
+     * Un producto pertenece a una categoría.
+     */
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'id_categoria', 'id_categoria');
+    }
 }

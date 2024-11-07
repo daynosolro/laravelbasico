@@ -1,0 +1,2 @@
+php artisan make:migration create_categorias_table --create=categorias
+php artisan migrate

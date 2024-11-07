@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Categoria;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,7 +16,9 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('products.create');
+        $categorias = Categoria::all(); // Obtener todas las categorías
+
+        return view('products.create', compact('categorias'));
     }
 
     public function store(Request $request)
@@ -23,6 +27,8 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
+            'id_categoria' => 'nullable|exists:categorias,id_categoria',
+
         ]);
 
         //Product::create($request->all());
@@ -31,6 +37,7 @@ class ProductController extends Controller
         $product->name = $request->input('name')."test";
         $product->description = $request->input('description');
         $product->price = $request->input('price');
+        $product->id_categoria = $request->input('id_categoria');
         $product->save();
 
 
@@ -46,9 +53,10 @@ class ProductController extends Controller
     {
         // Buscamos el producto por su ID
         $product = Product::findOrFail($id);
-    
+        $categorias = Categoria::all();
+
         // Retornamos la vista 'products.edit' con el producto específico para editar
-        return view('products.edit', compact('product'));
+        return view('products.edit', compact('product', 'categorias'));
     }
     
     public function update(Request $request, $id)
@@ -58,6 +66,8 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required|numeric',
+            'id_categoria' => 'nullable|exists:categorias,id_categoria',
+
         ]);
     
         // Buscamos el producto y actualizamos con los nuevos valores
@@ -65,6 +75,8 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->id_categoria = $request->input('id_categoria');
+
         $product->save();
     
         // Redireccionamos a la lista de productos o al detalle del producto actualizado
