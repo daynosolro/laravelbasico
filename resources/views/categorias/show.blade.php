@@ -2,10 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h1>{{ $product->name }}</h1>
-        <p>{{ $product->description }}</p>
-        <p>Precio: ${{ $product->price }}</p>
-
-        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary">Editar Producto</a>
+        <h1>{{ $categoria->nombre }}</h1>
+        
+        <a href="{{ route('categorias.edit',['categoria' => $categoria->id_categoria] ) }}" class="btn btn-primary">Editar  </a>
     </div>
 @endsection

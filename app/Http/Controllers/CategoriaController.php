@@ -44,11 +44,12 @@ class CategoriaController extends Controller
     
     public function update(Request $request, $id)
     {
+        //id no importa como lo llame
+        
          $request->validate([
             'nombre' => 'required' 
         ]);
-    
-         $categoria = Categoria::findOrFail($id);
+          $categoria = Categoria::findOrFail($id);
         $categoria->nombre = $request->nombre;
         $categoria->save();
     
